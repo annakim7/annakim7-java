@@ -57,13 +57,16 @@ public class City{
     public void addMouse(){
         creaturesToAdd.add(new Mouse(rand.nextInt(HEIGHT),rand.nextInt(WIDTH),this,rand));
     }
+    //created new function to add mouse
+    public void birthMouse(int x, int y){
+        Mouse birth = new Mouse(x, y, this, rand);
+        creaturesToAdd.add(birth);
+    }
     
     public void addCat(){
-        
         creaturesToAdd.add(new Cat(rand.nextInt(HEIGHT),rand.nextInt(WIDTH),this,rand));
     }
     
-
     //use this method to queue up a create to be added
     public void addNewCreatures(){
         while(!creaturesToAdd.isEmpty()){
@@ -82,9 +85,10 @@ public class City{
 
         //First, for all creatures ...
         for(Creature c : creatures){
-            c.step(); 
+            c.step();
         } //move everyone forward one step in simulation
-        
+
+
         //Second, for all cratures ...
         for(Creature c : creatures){
             c.takeAction(); 
@@ -111,3 +115,11 @@ public class City{
 
     }
 }
+
+/*
+ * 
+ * 
+ * 
+ * 
+ * 
+ */

@@ -1,25 +1,6 @@
 import java.util.Random;
 
-public class Creature {
-
-    
-    // Note, that output should be in (x,y) format as
-    // the plotter expects it in that format.
-
-
-    // dir: 0=North, 1=East, 2=South, 3=West.
-    // 
-    //
-    //
-    //               N (r-1,c+0)
-    //               0
-    //(r+0,c-1) W 3 [ ]  1 E (r+0,c+1)
-    //               2
-    //               S (r+1,c+0)
-    //
-    //
-    // 
-    // 
+abstract class Creature {
     
     public final static int NORTH = 0;
     public final static int EAST = 1;
@@ -27,7 +8,6 @@ public class Creature {
     public final static int WEST = 3;
     public final static int NUM_DIRS = 4;
     public final static int[] DIRS = {NORTH,EAST,SOUTH,WEST};
-
 
     //Use the index of the direction to determine how to add to a row or column
     //For example, if NORTH (index 0), the we subtract 1 from Y, and add 0 to X
@@ -53,7 +33,7 @@ public class Creature {
     private int dir;
 
     //current point in grid
-    private GridPoint point;
+    protected GridPoint point;
 
     //current color label for the point
     protected char lab;
@@ -83,9 +63,10 @@ public class Creature {
         stepLen=1;
     }
 
-    public boolean isDead(){ return dead;}
+    public boolean isDead(){ 
+        return dead;
+    }
 
-    
     //getter/setter methods
     public int getY(){
         return point.y;
@@ -108,7 +89,6 @@ public class Creature {
         return this.dir;
     }
 
-
     //compute the distance to another creature
     public int dist(Creature c){
         return point.dist(c.getGridPoint());
@@ -118,18 +98,18 @@ public class Creature {
     public void randomTurn() {
         this.dir = rand.nextInt(4);
     }
-
     
     //TODO: add the methods below to the appropriate class(es)
-    //  void step()
-    //  void takeAction()
+      public void step(){ //TODO 
+        this.point.y = (this.point.y + this.dirY[dir]*stepLen + City.HEIGHT) % City.HEIGHT;
+        this.point.x = (this.point.x + this.dirX[dir]*stepLen + City.WIDTH) % City.WIDTH;
+    }
 
-
+    public abstract void takeAction();
     
     //To string so you can output a creature to the plotter
     public String toString() {
         //output in (x,y) format
         return ""+this.point.x+" "+this.point.y+" "+lab;
     }
-
 }
